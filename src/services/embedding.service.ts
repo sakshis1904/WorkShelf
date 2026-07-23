@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, TaskType } from "@google/generative-ai";
 import { RAG_CONFIG } from "@/config/app";
 import { logger } from "@/lib/logger";
 
@@ -15,8 +15,7 @@ const EMBEDDING_DIMENSIONS = 768;
 export async function generateEmbedding(text: string): Promise<number[]> {
   const result = await embeddingModel.embedContent({
     content: { role: "user", parts: [{ text }] },
-    taskType: "RETRIEVAL_DOCUMENT",
-    outputDimensionality: EMBEDDING_DIMENSIONS,
+    taskType: TaskType.RETRIEVAL_DOCUMENT,
   });
   return result.embedding.values;
 }
